@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Analyse Production ↔️ Climat</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body class="visualize-page">
+    <h1>Analyse de la Production en fonction du Climat</h1>
+
+    {% if graph_path %}
+        <img src="{{ url_for('static', filename='production_climate.png') }}" 
+             alt="Graphique Production vs Climat" class="graph">
+    {% else %}
+        <p>Aucune donnée disponible pour générer un graphique.</p>
+    {% endif %}
+
+    <h2>Tableau récapitulatif</h2>
+    <table>
+        <tr>
+            <th>Date</th>
+            <th>Quantité (tonnes)</th>
+            <th>Climat</th>
+            <th>Prix (FCFA)</th>
+            <th>Raisons du prix</th>
+            <th>Problèmes rencontrés</th>
+            <th>Autres observations</th>
+        </tr>
+        {% for prod in productions %}
+        <tr>
+            <td>{{ prod.date }}</td>
+            <td>{{ prod.quantity }}</td>
+            <td class="climate-cell">{{ prod.climate }}</td>
+            <td>{{ prod.price }}</td>
+            <td>{{ prod.reason_price }}</td>
+            <td class="problem-cell">{{ prod.problems }}</td>
+
+        <tr>
+            <td>{{ prod.date }}</td>
+            <td>{{ prod.quantity }}</td>
+            <td class="climate-cell">{{ prod.climate }}</td>
+            <td>{{ prod.price }}</td>
+            <td>{{ prod.reason_price }}</td>
+            <td class="problem-cell">{{ prod.problems }}</td>
+            <td>{{ prod.other_observations }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <p><a href="{{ url_for('index') }}">Retour au formulaire</a></p>
+</body>
+</html>

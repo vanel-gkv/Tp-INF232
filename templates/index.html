@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Saisie Production Cacao</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body class="form-page">
+    <h1> Saisie des Données de Production de Cacao</h1>
+
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <ul class="flash-messages">
+          {% for message in messages %}
+            <li>{{ message }}</li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    {% endwith %}
+
+    <form action="/submit" method="post" class="cacao-form">
+        <label>Quantité (en tonnes) :</label>
+        <input type="number" name="quantity" required>
+        
+        <label>Date de la récolte :</label>
+        <input type="date" name="date" required>
+        
+        <label>Conditions climatiques :</label>
+        <select name="climate_select" required>
+            <option value="ensoleillé">Ensoleillé</option>
+            <option value="pluvieux">Pluvieux</option>
+            <option value="humide">Humide</option>
+            <option value="sec">Sec</option>
+            <option value="autre">Autre (précisez ci-dessous)</option>
+        </select>
+        <textarea name="climate_other" rows="2" placeholder="(Autre) précisez ici"></textarea>
+        
+        <label>Prix du cacao (en FCFA) :</label>
+        <input type="number" name="price" step="0.01" required>
+        
+        <label>Raisons du prix :</label>
+        <div class="checkbox-group">
+            <label><input type="checkbox" name="reason_price" value="demande"> Demande mondiale élevée</label>
+            <label><input type="checkbox" name="reason_price" value="secheresse"> Sécheresse</label>
+            <label><input type="checkbox" name="reason_price" value="maladies"> Maladies</label>
+            <label><input type="checkbox" name="reason_price" value="couts"> Coûts élevés</label>
+            <label><input type="checkbox" name="reason_price" value="aucune"> Aucune idée</label>
+            <label><input type="checkbox" name="reason_price" value="autre"> Autre</label>
+        </div>
+        <textarea name="reason_price_other" rows="2" placeholder="(Autre) précisez ici"></textarea>
+
+        <label>Problèmes rencontrés :</label>
+        <div class="checkbox-group">
+            <label><input type="checkbox" name="problems" value="peste"> Peste</label>
+            <label><input type="checkbox" name="problems" value="sécheresse"> Sécheresse</label>
+            <label><input type="checkbox" name="problems" value="inondation"> Inondation</label>
+            <label><input type="checkbox" name="problems" value="aucun"> Aucun problème</label>
+            <label><input type="checkbox" name="problems" value="autre"> Autre</label>
+        </div>
+        <textarea name="other_observations" rows="3" placeholder="(Autre) précisez ici"></textarea>
+        
+        <button type="submit">Soumettre</button>
+    </form>
+
+    <p><a href="{{ url_for('visualize') }}">Voir l'analyse des données</a></p>
+</body>
+</html>
