@@ -69,7 +69,6 @@ def submit():
 @app.route("/visualize")
 def visualize():
     productions = Production.query.all()
-
     if productions:
         climates = list(set([prod.climate for prod in productions]))
         climate_map = {c: i for i, c in enumerate(climates)}
