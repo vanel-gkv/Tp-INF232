@@ -3,6 +3,10 @@ from flask_sqlalchemy import SQLAlchemy
 import matplotlib.pyplot as plt
 import numpy as np
 import os
+import matplotlib
+
+matplotlib.use("Agg")
+
 
 app = Flask(__name__)
 app.secret_key = "secret"
@@ -76,7 +80,7 @@ def visualize():
         X = np.array([climate_map[prod.climate] for prod in productions])
         y = np.array([prod.quantity for prod in productions])
 
-        graph_path = os.path.join("static", "production_climate.png")
+        graph_path = os.path.join(app.root_path, "static", "production_climate.png")
 
         # Vérification avant régression
         if len(np.unique(X)) > 1 and len(np.unique(y)) > 1:
