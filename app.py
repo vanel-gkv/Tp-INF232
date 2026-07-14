@@ -9,7 +9,7 @@ app = Flask(__name__)
 
 @app.route("/")
 def index():
-    return "Bienvenue sur mon service Render !"
+    return render_template("index.html")
 
 
 @app.route("/visualize")
